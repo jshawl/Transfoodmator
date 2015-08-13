@@ -11,4 +11,6 @@ class Recipe < ActiveRecord::Base
   accepts_nested_attributes_for :cooking_steps, allow_destroy: true
 
   mount_uploader :avatar, RecipeAvatarUploader
+
+  
 end

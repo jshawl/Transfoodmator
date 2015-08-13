@@ -29,6 +29,8 @@ class RecipesController < ApplicationController
       redirect_to user_recipe_path(@user, @recipe) and return
     end
     redirect_to new_user_recipe_path(@user) and return
+    # else
+    #   instead of and return is easier to read
   end
 
   def show
@@ -53,9 +55,13 @@ class RecipesController < ApplicationController
 
     # @recipe.ingredients.build(name: original_recipe.ingredients.first.name, quantity: original_recipe.ingredients.first.quantity, unit_of_measurement: original_recipe.ingredients.first.unit_of_measurement)
     # @recipe.ingredients.build(name: original_recipe.ingredients.last.name, quantity: original_recipe.ingredients.last.quantity, unit_of_measurement: original_recipe.ingredients.last.unit_of_measurement)
+    # remove commented out code in the future
 
     @recipe.cooking_steps.build(name: original_recipe.cooking_steps.first.name, time: original_recipe.cooking_steps.first.time)
     @recipe.cooking_steps.build(name: original_recipe.cooking_steps.last.name, time: original_recipe.cooking_steps.last.time)
+    # Can you think of a way to move some of this logic to a model method?
+    # like:
+    # @recipe.copy original_recipe
 
     render :new
   end
@@ -74,7 +80,7 @@ class RecipesController < ApplicationController
 
   def destroy
     @user = current_user
-    @recipe = @user.recipes.find(params[:id])
+    @recipe = @user.recipes.find(params[:id]) # excellent!
     @recipe.destroy
 
     redirect_to user_path(@user)
